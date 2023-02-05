@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_DZ_KvestRoom_8", "Lab_DZ_KvestRoom_8\Lab_DZ_KvestRoom_8.csproj", "{C830B9B5-B12B-4624-A478-EABBB63C8F5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C830B9B5-B12B-4624-A478-EABBB63C8F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C830B9B5-B12B-4624-A478-EABBB63C8F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C830B9B5-B12B-4624-A478-EABBB63C8F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C830B9B5-B12B-4624-A478-EABBB63C8F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8C529ABD-C222-4848-BD08-AB1D1D989295}
+	EndGlobalSection
+EndGlobal

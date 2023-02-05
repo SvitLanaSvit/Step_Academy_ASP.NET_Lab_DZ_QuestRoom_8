@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Lab_DZ_KvestRoom_8.Data.QuestRoom>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles{
+    <style>
+        .questPhoto{
+            height: 100px;
+            width: 157px;
+            object-fit: cover;
+        }
+        .photo{
+            text-align: center;
+        }
+        .btn{
+            height: 40px;
+        }
+        .btn-sm{
+            padding-top: 6px;
+            font-size: 16px;
+        }
+    </style>
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="photo">
+                @Html.DisplayNameFor(model => model.Logotype)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td class="photo">
+                <img class="questPhoto" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Logotype!))"
+                         alt="@item.Name">
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@*<body>
+    <div class="wrapper">
+        @foreach (var item in Model)
+        {
+            <div class="containerCart">
+                <p>
+                @Html.DisplayFor(modelItem => item.Name)
+                </p>
+                <div class="photo">
+                    <img class="questPhoto" src="data:image/jpeg;base64,@(Convert.ToBase64String(item.Logotype!))"
+                            alt="@item.Name">
+                </div>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        }
+    </div>
+</body>*@

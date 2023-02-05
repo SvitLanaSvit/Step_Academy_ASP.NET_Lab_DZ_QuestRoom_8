@@ -1,0 +1,95 @@
+﻿@model Lab_DZ_KvestRoom_8.Data.QuestRoom
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>QuestRoom</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Details" class="control-label"></label>
+                <input asp-for="Details" class="form-control" />
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimePassing" class="control-label"></label>
+                <input asp-for="TimePassing" class="form-control" />
+                <span asp-validation-for="TimePassing" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinCountPlayers" class="control-label"></label>
+                <input asp-for="MinCountPlayers" class="form-control" />
+                <span asp-validation-for="MinCountPlayers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxCountPlayers" class="control-label"></label>
+                <input asp-for="MaxCountPlayers" class="form-control" />
+                <span asp-validation-for="MaxCountPlayers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinAgeOfPlayer" class="control-label"></label>
+                <input asp-for="MinAgeOfPlayer" class="form-control" />
+                <span asp-validation-for="MinAgeOfPlayer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Addresse" class="control-label"></label>
+                <input asp-for="Addresse" class="form-control" />
+                <span asp-validation-for="Addresse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NameOfCompany" class="control-label"></label>
+                <input asp-for="NameOfCompany" class="form-control" />
+                <span asp-validation-for="NameOfCompany" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label"></label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LevelOfFear" class="control-label"></label>
+                <input asp-for="LevelOfFear" class="form-control" />
+                <span asp-validation-for="LevelOfFear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LevelOfComplexity" class="control-label"></label>
+                <input asp-for="LevelOfComplexity" class="form-control" />
+                <span asp-validation-for="LevelOfComplexity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Logotype" class="control-label"></label>
+                <input asp-for="Logotype" class="form-control" type="file" accept="image/*" name="logotype"/>
+                <span asp-validation-for="Logotype" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
