@@ -6,22 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Lab_DZ_KvestRoom_8.Data;
+using AutoMapper;
+using Lab_DZ_KvestRoom_8.Models.DTO;
+using Lab_DZ_KvestRoom_8.Models.ViewModels.QuestRoomsViewModelAdmin;
 
 namespace Lab_DZ_KvestRoom_8.Controllers
 {
     public class QuestRoomsController : Controller
     {
         private readonly QuestRoomContext _context;
+        private readonly IMapper _mapper;
+        private readonly ILogger _logger;
 
-        public QuestRoomsController(QuestRoomContext context)
+        public QuestRoomsController(QuestRoomContext context, IMapper mapper, ILoggerFactory loggerFactory)
         {
             _context = context;
+            _mapper = mapper;
+            _logger = loggerFactory.CreateLogger<QuestRoomsController>();
         }
 
         // GET: QuestRooms
         public async Task<IActionResult> Index()
         {
-              return View(await _context.QuestRooms.ToListAsync());
+            IQueryable<QuestRoom> questRooms = _context.QuestRooms;
+            IEnumerable<QuestRoomDTO> tempRooms = 
+                _mapper.Map<IEnumerable<QuestRoomDTO>>(await questRooms.ToArrayAsync());
+            IndexQuestRoomsViewModelAdmin vM = new IndexQuestRoomsViewModelAdmin()
+            {
+                QuestRooms = tempRooms,
+            };
+            return View(vM);
         }
 
         // GET: QuestRooms/Details/5
@@ -39,13 +53,18 @@ namespace Lab_DZ_KvestRoom_8.Controllers
                 return NotFound();
             }
 
-            return View(questRoom);
+            DetailsQuestRoomsViewModelAdmin vW = new DetailsQuestRoomsViewModelAdmin()
+            {
+                QuestRoom = _mapper.Map<QuestRoomDTO>(questRoom)
+            };
+            return View(vW);
         }
 
         // GET: QuestRooms/Create
         public IActionResult Create()
         {
-            return View();
+            CreateQuestRoomsViewModelAdmin createQuest = new CreateQuestRoomsViewModelAdmin();
+            return View(createQuest);
         }
 
         // POST: QuestRooms/Create
@@ -53,24 +72,26 @@ namespace Lab_DZ_KvestRoom_8.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Details,TimePassing,MinCountPlayers,MaxCountPlayers,MinAgeOfPlayer,Addresse,Phone,Email,NameOfCompany,Rating,LevelOfFear,LevelOfComplexity,Logotype")] QuestRoom questRoom,
-            IFormFile logotype)
+        public async Task<IActionResult> Create(CreateQuestRoomsViewModelAdmin vM)
         {
             if (ModelState.IsValid)
             {
-                if(logotype != null)
+                using (BinaryReader br = new BinaryReader(vM.Logotype.OpenReadStream()))
                 {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        logotype.CopyTo(ms);
-                        questRoom.Logotype = ms.ToArray();
-                    }
+                    vM.QuestRoom.Logotype = br.ReadBytes((int)vM.Logotype.Length);
                 }
-                _context.Add(questRoom);
+                QuestRoom createdQuestRoom = _mapper.Map<QuestRoom>(vM.QuestRoom);
+                _context.Add(createdQuestRoom);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            return View(questRoom);
+            else
+            {
+                foreach (var error in ModelState.Values.SelectMany(t => t.Errors))
+                {
+                    _logger.LogError(error.ErrorMessage);
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: QuestRooms/Edit/5
@@ -86,7 +107,12 @@ namespace Lab_DZ_KvestRoom_8.Controllers
             {
                 return NotFound();
             }
-            return View(questRoom);
+
+            EditQuestRoomsViewModelAdmin vM = new EditQuestRoomsViewModelAdmin()
+            {
+                QuestRoom = _mapper.Map<QuestRoomDTO>(questRoom)
+            };
+            return View(vM);
         }
 
         // POST: QuestRooms/Edit/5
@@ -94,44 +120,50 @@ namespace Lab_DZ_KvestRoom_8.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, 
-            [Bind("Id,Name,Details,TimePassing,MinCountPlayers,MaxCountPlayers,MinAgeOfPlayer,Addresse,Phone,Email,NameOfCompany,Rating,LevelOfFear,LevelOfComplexity,Logotype")] QuestRoom questRoom, 
-            IFormFile logotype)
+        //public async Task<IActionResult> Edit(int id, 
+        //    [Bind("Id,Name,Details,TimePassing,MinCountPlayers,MaxCountPlayers,MinAgeOfPlayer,Addresse,Phone,Email,NameOfCompany,Rating,LevelOfFear,LevelOfComplexity,Logotype")] QuestRoom questRoom, 
+        //    IFormFile logotype)
+        public async Task<IActionResult> Edit(int id, EditQuestRoomsViewModelAdmin vM)
         {
-            if (id != questRoom.Id)
+            if (id != vM.QuestRoom.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                if(logotype != null) //Not work!!!!!
+                foreach(var error in ModelState.Values.SelectMany(t=>t.Errors))
                 {
-                    using(MemoryStream ms = new MemoryStream())
-                    {
-                        logotype.CopyTo(ms);
-                        questRoom.Logotype = ms.ToArray();
-                    }
+                    _logger.LogError(error.ErrorMessage);
                 }
-                try
-                {
-                    _context.Update(questRoom);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QuestRoomExists(questRoom.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(vM);
             }
-            return View(questRoom);
+
+            try
+            {
+                if (vM.Logotype is not null) //Not work!!!!!
+                {
+                    using (BinaryReader br = new BinaryReader(vM.Logotype.OpenReadStream()))
+                    {
+                        vM.QuestRoom.Logotype = br.ReadBytes((int)vM.Logotype.Length);
+                    }
+                }
+                QuestRoom editQuestRoom = _mapper.Map<QuestRoom>(vM.QuestRoom);
+                _context.Update(editQuestRoom);
+                await _context.SaveChangesAsync(); 
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!QuestRoomExists(vM.QuestRoom.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: QuestRooms/Delete/5

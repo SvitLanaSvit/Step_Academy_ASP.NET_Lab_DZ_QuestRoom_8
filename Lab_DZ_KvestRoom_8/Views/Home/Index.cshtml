@@ -1,10 +1,9 @@
 ﻿@using Lab_DZ_KvestRoom_8.Models.ViewModels.QuestRoomsViewModels;
-@*@model IEnumerable<Lab_DZ_KvestRoom_8.Data.QuestRoom>
-*@
 
 @model IndexQuestRoomsViewModel
 @{
     ViewData["Title"] = "Home Page";
+    ViewData["Author"] = "Svitlana Kizilpinar";
 }
 
 @section Styles{
@@ -32,6 +31,10 @@
                 width: 300px;
                 padding: 5px;
                 box-shadow: 0px 0px 15px 4px;
+            }
+
+            .form-select{
+                height:40.8px;
             }
         </style>
 }
@@ -61,6 +64,11 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+            </select>
+        </div>
+        <div class="col-md-auto">
+            <select asp-for="QuestRoomId" class="form-select" asp-items="@Model.QuestRoomsSL">
+                <option value="-1">All</option>
             </select>
         </div>
         <div class="col-md-auto">

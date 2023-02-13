@@ -1,7 +1,9 @@
+using Lab_DZ_KvestRoom_8.AutoMapperProfiles;
 using Lab_DZ_KvestRoom_8.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAutoMapper(typeof(QuestRoomProfile));
 builder.Services.AddDbContext<QuestRoomContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("QuestRoomsDbASP")
 ?? throw new InvalidOperationException("Connecting string is not set!"))

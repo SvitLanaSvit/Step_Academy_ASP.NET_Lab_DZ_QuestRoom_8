@@ -1,5 +1,7 @@
-﻿@model Lab_DZ_KvestRoom_8.Data.QuestRoom
-
+﻿@*@model Lab_DZ_KvestRoom_8.Data.QuestRoom
+*@
+@using Lab_DZ_KvestRoom_8.Models.DTO
+@model Lab_DZ_KvestRoom_8.Models.ViewModels.QuestRoomsViewModelAdmin.EditQuestRoomsViewModelAdmin
 @{
     ViewData["Title"] = "Edit";
 }
@@ -12,75 +14,81 @@
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="QuestRoom.Id" />
+            <input type="hidden" asp-for="QuestRoom.Logotype"/>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="QuestRoom.Name" class="control-label"></label>
+                <input asp-for="QuestRoom.Name" class="form-control" />
+                <span asp-validation-for="QuestRoom.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Details" class="control-label"></label>
-                <input asp-for="Details" class="form-control" />
-                <span asp-validation-for="Details" class="text-danger"></span>
+                <label asp-for="QuestRoom.Details" class="control-label"></label>
+                <input asp-for="QuestRoom.Details" class="form-control" />
+                <span asp-validation-for="QuestRoom.Details" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TimePassing" class="control-label"></label>
-                <input asp-for="TimePassing" class="form-control" />
-                <span asp-validation-for="TimePassing" class="text-danger"></span>
+                <label asp-for="QuestRoom.TimePassing" class="control-label"></label>
+                <input asp-for="QuestRoom.TimePassing" class="form-control" />
+                <span asp-validation-for="QuestRoom.TimePassing" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MinCountPlayers" class="control-label"></label>
-                <input asp-for="MinCountPlayers" class="form-control" />
-                <span asp-validation-for="MinCountPlayers" class="text-danger"></span>
+                <label asp-for="QuestRoom.MinCountPlayers" class="control-label"></label>
+                <input asp-for="QuestRoom.MinCountPlayers" class="form-control" />
+                <span asp-validation-for="QuestRoom.MinCountPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaxCountPlayers" class="control-label"></label>
-                <input asp-for="MaxCountPlayers" class="form-control" />
-                <span asp-validation-for="MaxCountPlayers" class="text-danger"></span>
+                <label asp-for="QuestRoom.MaxCountPlayers" class="control-label"></label>
+                <input asp-for="QuestRoom.MaxCountPlayers" class="form-control" />
+                <span asp-validation-for="QuestRoom.MaxCountPlayers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MinAgeOfPlayer" class="control-label"></label>
-                <input asp-for="MinAgeOfPlayer" class="form-control" />
-                <span asp-validation-for="MinAgeOfPlayer" class="text-danger"></span>
+                <label asp-for="QuestRoom.MinAgeOfPlayer" class="control-label"></label>
+                <input asp-for="QuestRoom.MinAgeOfPlayer" class="form-control" />
+                <span asp-validation-for="QuestRoom.MinAgeOfPlayer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Addresse" class="control-label"></label>
-                <input asp-for="Addresse" class="form-control" />
-                <span asp-validation-for="Addresse" class="text-danger"></span>
+                <label asp-for="QuestRoom.Addresse" class="control-label"></label>
+                <input asp-for="QuestRoom.Addresse" class="form-control" />
+                <span asp-validation-for="QuestRoom.Addresse" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
+                <label asp-for="QuestRoom.Phone" class="control-label"></label>
+                <input asp-for="QuestRoom.Phone" class="form-control" />
+                <span asp-validation-for="QuestRoom.Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="QuestRoom.Email" class="control-label"></label>
+                <input asp-for="QuestRoom.Email" class="form-control" />
+                <span asp-validation-for="QuestRoom.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NameOfCompany" class="control-label"></label>
-                <input asp-for="NameOfCompany" class="form-control" />
-                <span asp-validation-for="NameOfCompany" class="text-danger"></span>
+                <label asp-for="QuestRoom.NameOfCompany" class="control-label"></label>
+                <input asp-for="QuestRoom.NameOfCompany" class="form-control" />
+                <span asp-validation-for="QuestRoom.NameOfCompany" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
+                <label asp-for="QuestRoom.Rating" class="control-label"></label>
+                <input asp-for="QuestRoom.Rating" class="form-control" />
+                <span asp-validation-for="QuestRoom.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LevelOfFear" class="control-label"></label>
-                <input asp-for="LevelOfFear" class="form-control" />
-                <span asp-validation-for="LevelOfFear" class="text-danger"></span>
+                <label asp-for="QuestRoom.LevelOfFear" class="control-label"></label>
+                <input asp-for="QuestRoom.LevelOfFear" class="form-control" />
+                <span asp-validation-for="QuestRoom.LevelOfFear" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LevelOfComplexity" class="control-label"></label>
-                <input asp-for="LevelOfComplexity" class="form-control" />
-                <span asp-validation-for="LevelOfComplexity" class="text-danger"></span>
+                <label asp-for="QuestRoom.LevelOfComplexity" class="control-label"></label>
+                <input asp-for="QuestRoom.LevelOfComplexity" class="form-control" />
+                <span asp-validation-for="QuestRoom.LevelOfComplexity" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div class="mb-3">
+                    <p>Current logotype:</p>
+                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.QuestRoom.Logotype!))"
+                    class="card-img-bottom w-100" alt="@Model.QuestRoom.Name"/>
+                </div>
                 <label asp-for="Logotype" class="control-label"></label>
-                <input asp-for="Logotype" class="form-control" type="file" accept="/image/*" value="@Model.Logotype" name="logotype"/>
+                <input asp-for="Logotype" class="form-control" type="file" accept="/image/*"/>
                 <span asp-validation-for="Logotype" class="text-danger"></span>
             </div>
             <div class="form-group">

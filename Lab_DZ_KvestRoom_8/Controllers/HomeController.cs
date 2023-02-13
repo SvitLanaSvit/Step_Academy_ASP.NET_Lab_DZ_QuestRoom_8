@@ -1,7 +1,10 @@
-﻿using Lab_DZ_KvestRoom_8.Data;
+﻿using AutoMapper;
+using Lab_DZ_KvestRoom_8.Data;
 using Lab_DZ_KvestRoom_8.Models;
+using Lab_DZ_KvestRoom_8.Models.DTO;
 using Lab_DZ_KvestRoom_8.Models.ViewModels.QuestRoomsViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -9,9 +12,7 @@ namespace Lab_DZ_KvestRoom_8.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
         private readonly ILogger _logger;
-
         private readonly QuestRoomContext _context;
 
         public HomeController(ILoggerFactory loggerFactory, QuestRoomContext context)
@@ -26,7 +27,7 @@ namespace Lab_DZ_KvestRoom_8.Controllers
         //    return View(await _context.QuestRooms.ToListAsync());
         //}
 
-        public async Task<IActionResult> Index(string levelOfFear, string levelOfComplexity)
+        public async Task<IActionResult> Index(string levelOfFear, string levelOfComplexity, int questRoomId)
         {
             IQueryable<QuestRoom> questRooms = _context.QuestRooms;
             int fear = -1;
@@ -34,29 +35,46 @@ namespace Lab_DZ_KvestRoom_8.Controllers
 
             if (levelOfFear != null && levelOfComplexity != null)
             {
-                fear = int.Parse(levelOfFear);
-                complexity = int.Parse(levelOfComplexity);
-                if (fear >= 0 && fear < 6 && complexity >= 0 && complexity < 6)
-                    questRooms = _context.QuestRooms.Where
-                        (
-                        t => t.LevelOfFear == fear &&
-                        t.LevelOfComplexity == complexity
-                        );
-                else if(fear >= 0 && fear < 6 && complexity == -1)
-                    questRooms = _context.QuestRooms.Where(t => t.LevelOfFear == fear);
-                else if(fear == -1 && complexity >= 0 && complexity < 6)
-                    questRooms = _context.QuestRooms.Where(t => t.LevelOfComplexity == complexity);
+                if (questRoomId > 0)
+                {
+                    questRooms = _context.QuestRooms.Where(t => t.Id == questRoomId); 
+                }
+                else
+                {
+                    fear = int.Parse(levelOfFear);
+                    complexity = int.Parse(levelOfComplexity);
+                    if (fear >= 0 && fear < 6 && complexity >= 0 && complexity < 6)
+                        questRooms = _context.QuestRooms.Where
+                            (
+                            t => t.LevelOfFear == fear &&
+                            t.LevelOfComplexity == complexity
+                            );
+                    else if (fear >= 0 && fear < 6 && complexity == -1)
+                        questRooms = _context.QuestRooms.Where(t => t.LevelOfFear == fear);
+                    else if (fear == -1 && complexity >= 0 && complexity < 6)
+                        questRooms = _context.QuestRooms.Where(t => t.LevelOfComplexity == complexity);
+                }
             }
             else questRooms = _context.QuestRooms;
 
+            //---------------SelectList-------------------------
+            SelectList questRoomSL = new SelectList(await _context.QuestRooms.ToListAsync(),
+                dataValueField: nameof(QuestRoom.Id),
+                dataTextField: nameof(QuestRoom.Name),
+                selectedValue: questRoomId);
+            //---------------------------------------------------
 
-            var tempQuestRooms = await questRooms.ToListAsync();
+            var tempQuestRooms = await questRooms.ToArrayAsync();
             IndexQuestRoomsViewModel viewModel = new IndexQuestRoomsViewModel
             {
                 QuestRooms = tempQuestRooms,
                 LevelOfFear = levelOfFear,
-                LevelOfComplexity = levelOfComplexity
+                LevelOfComplexity = levelOfComplexity,
+                QuestRoomId = questRoomId,//SL
+                QuestRoomsSL = questRoomSL//SL
             };
+
+
             return View(viewModel);
         }
 
@@ -76,6 +94,11 @@ namespace Lab_DZ_KvestRoom_8.Controllers
             }
 
             return View(questRoom);
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }

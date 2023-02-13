@@ -1,4 +1,5 @@
-﻿@model Lab_DZ_KvestRoom_8.Data.QuestRoom
+﻿@*@model Lab_DZ_KvestRoom_8.Data.QuestRoom*@
+@model Lab_DZ_KvestRoom_8.Models.ViewModels.QuestRoomsViewModelAdmin.DetailsQuestRoomsViewModelAdmin
 
 @{
     ViewData["Title"] = "Details";
@@ -27,100 +28,100 @@
     <hr />
     <dl class="row">
          <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Logotype)
+            @Html.DisplayNameFor(model => model.QuestRoom.Logotype)
         </dt>
         <dd class = "col-sm-10">
             @*@Html.DisplayFor(model => model.Logotype)*@
-            <img class="questPhoto" src="data:images/jpeg;base64,@(Convert.ToBase64String(Model.Logotype!))" 
-            alt="@Model.Name"/>
+            <img class="questPhoto" src="data:images/jpeg;base64,@(Convert.ToBase64String(Model.QuestRoom.Logotype!))" 
+            alt="@Model.QuestRoom.Name"/>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.QuestRoom.Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.QuestRoom.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Details)
+            @Html.DisplayNameFor(model => model.QuestRoom.Details)
         </dt>
         <dd class = "col-sm-10 details">
-            @Html.DisplayFor(model => model.Details)
+            @Html.DisplayFor(model => model.QuestRoom.Details)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TimePassing)
+            @Html.DisplayNameFor(model => model.QuestRoom.TimePassing)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TimePassing)
+            @Html.DisplayFor(model => model.QuestRoom.TimePassing)
             <span> min</span>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinCountPlayers)
+            @Html.DisplayNameFor(model => model.QuestRoom.MinCountPlayers)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinCountPlayers)
+            @Html.DisplayFor(model => model.QuestRoom.MinCountPlayers)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxCountPlayers)
+            @Html.DisplayNameFor(model => model.QuestRoom.MaxCountPlayers)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxCountPlayers)
+            @Html.DisplayFor(model => model.QuestRoom.MaxCountPlayers)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinAgeOfPlayer)
+            @Html.DisplayNameFor(model => model.QuestRoom.MinAgeOfPlayer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinAgeOfPlayer)
+            @Html.DisplayFor(model => model.QuestRoom.MinAgeOfPlayer)
             <span> years old</span>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Addresse)
+            @Html.DisplayNameFor(model => model.QuestRoom.Addresse)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Addresse)
+            @Html.DisplayFor(model => model.QuestRoom.Addresse)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.DisplayNameFor(model => model.QuestRoom.Phone)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.QuestRoom.Phone)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.QuestRoom.Email)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.QuestRoom.Email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NameOfCompany)
+            @Html.DisplayNameFor(model => model.QuestRoom.NameOfCompany)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NameOfCompany)
+            @Html.DisplayFor(model => model.QuestRoom.NameOfCompany)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.QuestRoom.Rating)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
+            @Html.DisplayFor(model => model.QuestRoom.Rating)
             <span class="limit">/10</span>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LevelOfFear)
+            @Html.DisplayNameFor(model => model.QuestRoom.LevelOfFear)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LevelOfFear)
+            @Html.DisplayFor(model => model.QuestRoom.LevelOfFear)
             <span class="limit">/5</span>
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LevelOfComplexity)
+            @Html.DisplayNameFor(model => model.QuestRoom.LevelOfComplexity)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LevelOfComplexity)
+            @Html.DisplayFor(model => model.QuestRoom.LevelOfComplexity)
             <span class="limit">/5</span>
             @*<p>@Model.LevelOfComplexity/5</p>*@
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-secondary">Edit</a>
+    <a asp-action="Edit" asp-route-id="@Model?.QuestRoom.Id" class="btn btn-secondary">Edit</a>
     <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>
