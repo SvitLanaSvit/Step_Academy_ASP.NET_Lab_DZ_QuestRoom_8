@@ -80,7 +80,7 @@ namespace Lab_DZ_KvestRoom_8.Controllers
                 {
                     vM.QuestRoom.Logotype = br.ReadBytes((int)vM.Logotype.Length);
                 }
-                QuestRoom createdQuestRoom = _mapper.Map<QuestRoom>(vM.QuestRoom);
+                QuestRoom createdQuestRoom = _mapper.Map<QuestRoom>(vM.QuestRoom);//
                 _context.Add(createdQuestRoom);
                 await _context.SaveChangesAsync();
             }
