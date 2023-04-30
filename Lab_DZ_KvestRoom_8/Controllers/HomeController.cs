@@ -73,8 +73,6 @@ namespace Lab_DZ_KvestRoom_8.Controllers
                 QuestRoomId = questRoomId,//SL
                 QuestRoomsSL = questRoomSL//SL
             };
-
-
             return View(viewModel);
         }
 
